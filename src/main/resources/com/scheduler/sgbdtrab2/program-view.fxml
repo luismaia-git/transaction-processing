@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox fx:id="background" fillWidth="false" prefHeight="600.0" prefWidth="895.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.scheduler.sgbdtrab2.ProgramController">
+   <Pane prefHeight="63.0" prefWidth="895.0">
+      <children>
+         <Label layoutX="130.0" layoutY="13.0" text="LockTable">
+            <font>
+               <Font name="Segoe UI Bold" size="29.0" />
+            </font>
+         </Label>
+         <Label layoutX="503.0" layoutY="13.0" text="WaitItem">
+            <font>
+               <Font name="Segoe UI Bold" size="29.0" />
+            </font>
+         </Label>
+         <Label layoutX="730.0" layoutY="13.0" text="TrManager">
+            <font>
+               <Font name="Segoe UI Bold" size="29.0" />
+            </font>
+         </Label>
+      </children></Pane>
+   <HBox prefHeight="538.0" prefWidth="895.0">
+      <children>
+                
+                                    <TableView fx:id="LockTable" prefHeight="510.0" prefWidth="394.0">
+                            <columns>
+                                <TableColumn fx:id="TrId" minWidth="60.0" prefWidth="60.0" text="TR ID" />
+                                <TableColumn fx:id="IdItem" prefWidth="60.0" text="ID ITEM" />
+                                <TableColumn fx:id="Tipo" prefWidth="120.0" text="TIPO" />
+               <TableColumn fx:id="Duracao" text="DURAÇÃO" />
+               <TableColumn fx:id="Escopo" prefWidth="75.0" text="ESCOPO" />
+                            </columns>
+            <HBox.margin>
+               <Insets bottom="10.0" left="15.0" right="15.0" />
+            </HBox.margin>
+                        </TableView>
+         <TableView fx:id="WaitItem" prefHeight="538.0" prefWidth="295.0">
+           <columns>
+             <TableColumn fx:id="waitItemIdItem" prefWidth="75.0" text="IdItem" />
+             <TableColumn fx:id="waitItemIdTrs" prefWidth="220.0" text="ID TRANSAÇÕES" />
+           </columns>
+            <HBox.margin>
+               <Insets bottom="10.0" right="15.0" />
+            </HBox.margin>
+         </TableView>
+         <TableView fx:id="TrManager" prefHeight="450.0" prefWidth="158.0">
+           <columns>
+             <TableColumn fx:id="trManagertrId" prefWidth="75.0" text="TrId" />
+             <TableColumn fx:id="trManagerStatus" prefWidth="75.0" text="Status" />
+           </columns>
+            <HBox.margin>
+               <Insets bottom="10.0" right="15.0" />
+            </HBox.margin>
+         </TableView>
+      </children>
+   </HBox>
+   
+</VBox>

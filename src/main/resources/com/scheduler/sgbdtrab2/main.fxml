@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.scheduler.sgbdtrab2.MainController">
+   <StackPane>
+      <padding>
+         <Insets bottom="24.0" left="24.0" right="24.0" top="24.0"/>
+      </padding>
+      <VBox>
+         <Label alignment="CENTER" contentDisplay="CENTER" text="Selecione um nivel de isolamento">
+            <font>
+               <Font name="Segoe UI Bold" size="16.0"/>
+            </font>
+         </Label>
+         <ChoiceBox fx:id="select" prefWidth="150.0" value="serializable" onAction="#selected">
+            <items>
+               <FXCollections fx:factory="observableArrayList">
+                  <String fx:value="serializable"/>
+                  <String fx:value="repeatable read"/>
+                  <String fx:value="read committed"/>
+                  <String fx:value="read uncommitted"/>
+               </FXCollections>
+            </items>
+         </ChoiceBox>
+         <Label text="Entrar com escalonamento do tipo BT(1)r1(x)BT(2)w2(x)r2(y)r1(y)C(1)r2(z)C(2) "/>
+         <TextField fx:id="input" prefHeight="25.0" prefWidth="408.0" />
+         <Button mnemonicParsing="false" text="Iniciar" onAction="#onSubmit"/>
+      </VBox>
+   </StackPane>
+</AnchorPane>
