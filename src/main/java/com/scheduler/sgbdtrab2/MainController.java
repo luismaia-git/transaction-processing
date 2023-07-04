@@ -105,7 +105,7 @@ public class MainController implements Initializable {
         thread.setDaemon(true);
         thread.start();
 
-        parentStage.close();
+        //parentStage.hide();
 
 
 

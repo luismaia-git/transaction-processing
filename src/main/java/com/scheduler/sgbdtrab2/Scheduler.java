@@ -13,6 +13,7 @@ public class Scheduler {
     private LockTable lockTable;
     private WaitItem waitItem;
     private WaitDie waitDie;
+    private Graph grafo;
 
     private ArrayList<String> inputOperations;
 
@@ -50,6 +51,7 @@ public class Scheduler {
         this.waitItem = new WaitItem();
         this.scheduleList = FXCollections.observableArrayList();
         this.waitDie = new WaitDie();
+        this.grafo = new Graph();
     }
     public void setIsolationLevel(int isolationLevel){
         this.isolationLevel = isolationLevel;
@@ -102,6 +104,7 @@ public class Scheduler {
                     Transaction findedTransaction = trManager.getTransaction(trId);
                       if(!findedTransaction.getStatus().equals("abortada")){
                         if(!findedTransaction.getStatus().equals("esperando") ){
+                            System.out.printf("Operação lida: %s\n", command);
                             switch (operation) {
                                 case "r" -> { //leitura
                                     if(isolationLevel == 3){ // read uncommited nao tem bloqueio de leitura
@@ -118,13 +121,14 @@ public class Scheduler {
                                             }
                                         }else{
                                             //tem bloqueio
-                                            String status = waitDie.execute(trId, lockWL, this.trManager, this.lockTable); //Aborta ou espera
+                                            String status = waitDie.execute(trId, lockWL, this.trManager, this.lockTable, this.grafo); //Aborta ou espera
 
                                             if(status.equals("esperando")){
                                                 waitItem.addWaitingTransaction(item, trId, trManager, lockTable);
                                             }else{
                                                 iterator = this.inputOperations.iterator();
                                                 removeTransactionFromScheduleResult(trId);
+                                                grafo.removeEdgeAborted(findedTransaction.getTrId());
                                             }
 //                                            else{
 ////                                                removeTransactionFromOperations(trId);
@@ -144,7 +148,7 @@ public class Scheduler {
                                         }
                                     }else{
                                         //tem bloqueio
-                                        String status = waitDie.execute(trId, lock, this.trManager, this.lockTable); //Aborta ou espera
+                                        String status = waitDie.execute(trId, lock, this.trManager, this.lockTable, this.grafo); //Aborta ou espera
 
                                         if(status.equals("esperando")){
                                             waitItem.addWaitingTransaction(item, trId, trManager, lockTable); //adiciona na lista de espera
@@ -152,6 +156,7 @@ public class Scheduler {
                                         }else {
                                             iterator = this.inputOperations.iterator();
                                             removeTransactionFromScheduleResult(trId);
+                                            grafo.removeEdgeAborted(findedTransaction.getTrId());
                                         }
 //                                        else{ // se abortou
 ////                                            removeTransactionFromOperations(trId); // remove todas as operações
@@ -164,6 +169,7 @@ public class Scheduler {
                                 case "C(" -> {
                                     lockTable.commit(findedTransaction.getTrId());
                                     schedule(command, iterator);
+                                    grafo.removeEdgeAborted(findedTransaction.getTrId());
                                     PrintEstado();
                                 }
                             }
@@ -223,10 +229,13 @@ public class Scheduler {
     }
 
     public void PrintEstado(){
+        System.out.println("====================PrintState=======================");
         System.out.printf("Schedule de saida: %s \n", scheduleList);
         this.waitItem.printWaitItem();
         this.lockTable.printLockTable();
         this.trManager.printTrManager();
+        this.grafo.showGraph();
+        System.out.println("=====================================================");
     }
 
     public static String extrairLetra(String texto) {

@@ -63,7 +63,8 @@ public class WaitItem  {
         }
         WaitItemsRecord waitItemRecord = getWaitItem(idItem);
         waitItemRecord.addTransaction(trId);
-        trManager.setStatus(trId, "esperando");
+        //trManager.setStatus(trId, "esperando");
+
     }
 
 
