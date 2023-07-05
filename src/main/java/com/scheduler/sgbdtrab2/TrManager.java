@@ -48,6 +48,7 @@ public class TrManager {
         return null;
     }
 
+
     public boolean existsTransactionAndThatIsAborted(Integer trId){
         for (Transaction t: this.transacoes) {
             if(t.getTrId().equals(trId)){

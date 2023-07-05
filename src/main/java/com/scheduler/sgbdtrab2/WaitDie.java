@@ -1,6 +1,7 @@
 package com.scheduler.sgbdtrab2;
 public class WaitDie {
     public String execute(Integer ti, Integer tj, TrManager trManager, LockTable lockTable, Graph grafo){
+
         if(ti < tj ){
 
             trManager.setStatus(ti, "esperando");

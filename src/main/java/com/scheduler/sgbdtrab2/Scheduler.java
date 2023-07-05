@@ -121,6 +121,7 @@ public class Scheduler {
                                             }
                                         }else{
                                             //tem bloqueio
+
                                             String status = waitDie.execute(trId, lockWL, this.trManager, this.lockTable, this.grafo); //Aborta ou espera
 
                                             if(status.equals("esperando")){
@@ -170,6 +171,7 @@ public class Scheduler {
                                     lockTable.commit(findedTransaction.getTrId());
                                     schedule(command, iterator);
                                     grafo.removeEdgeAborted(findedTransaction.getTrId());
+                                    trManager.setStatus(findedTransaction.getTrId(), "concluida");
                                     PrintEstado();
                                 }
                             }
